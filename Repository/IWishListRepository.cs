@@ -7,7 +7,7 @@ namespace E_commerce_MVC.Repository
     {
         public List<WishList> GetAllbyCustomerId(string id);
         public WishList getwishlistByProductId(int id);
-        public bool ExistOrNot(int productid);
+        public bool ExistOrNot(string customerId, int productId);
         public void HardDelete(WishList wishList);
     }
 }

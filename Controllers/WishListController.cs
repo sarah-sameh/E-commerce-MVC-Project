@@ -1,6 +1,7 @@
 ﻿using E_commerce.Models;
 using E_commerce_MVC.Repository;
 using E_commerce_MVC.viewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace E_commerce_MVC.Controllers
             this.productRepository = productRepository;
             this.userManager = userManager;
         }
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Index(string id, int page = 1, int pageSize = 5)
         {
             List<WishList> wishLists = wishListRepository.GetAllbyCustomerId(id);

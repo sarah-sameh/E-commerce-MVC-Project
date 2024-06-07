@@ -16,10 +16,9 @@ namespace E_commerce_MVC.Repository
                 Where(item => item.Customer_Id == id && item.IsDeleted == false).ToList();
             return wishLists;
         }
-        public bool ExistOrNot(int productid)
+        public bool ExistOrNot(string customerId, int productId)
         {
-            bool found = context.WishLists.Any(w => w.Product_Id == productid);
-            return found;
+            return context.WishLists.Any(w => w.Customer_Id == customerId && w.Product_Id == productId);
         }
 
         public void HardDelete(WishList wishList)

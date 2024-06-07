@@ -47,10 +47,7 @@
                     <td class="text-center">$@Model.Price[i]</td>
                     <td class="text-center">@Model.Stock[i]</td>
                     <td class="text-center">
-                        @* <a class="btn btn-info" asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@Model.ProductId[i]">Add To Cart</a> *@
-                        @* <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.ProductId[i]" class="btn ">Add To Cart</a>  *@
                         <a href="#" class="btn btn-add-to-cart" data-productid="@Model.ProductId[i]">Add To Cart</a>
-
                     </td>
                 </tr>
             }
@@ -77,15 +74,14 @@
 <script>
     $(document).ready(function () {
         $(".btn-add-to-cart").click(function (e) {
-            e.preventDefault(); 
+            e.preventDefault();
 
             var productId = $(this).data("productid");
 
-            
             $.ajax({
-                url: '/Cart/AddToCartFromWishList', 
+                url: '/Cart/AddToCartFromWishList',
                 method: 'POST',
-                data: { productId: productId }, 
+                data: { productId: productId },
                 success: function (response) {
                     if (response.success) {
                         alert("Product added to cart successfully!");
@@ -100,7 +96,6 @@
             });
         });
     });
-
 
     $(document).ready(function () {
         const connection = new signalR.HubConnectionBuilder()

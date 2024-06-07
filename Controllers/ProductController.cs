@@ -163,16 +163,24 @@ namespace E_commerce_MVC.Controllers
             Product product = ProductRepository.Get(p => p.Id == ProductId);
             var currentUser = await userManager.GetUserAsync(User);
             string CurrentUserId = currentUser.Id;
-            WishList wishList = new WishList();
-            wishList.Customer_Id = CurrentUserId;
-            wishList.Product_Id = product.Id;
-            bool found = wishListRepository.ExistOrNot(ProductId);
-            if (found == true)
+
+            // Check if the product is already in the wishlist for the current user
+            bool found = wishListRepository.ExistOrNot(CurrentUserId, ProductId);
+            if (found)
             {
                 return RedirectToAction("Index", "WishList", new { id = CurrentUserId });
             }
+
+            // Add the product to the wishlist
+            WishList wishList = new WishList
+            {
+                Customer_Id = CurrentUserId,
+                Product_Id = product.Id
+            };
+
             wishListRepository.insert(wishList);
             wishListRepository.save();
+
             return RedirectToAction("Index", "WishList", new { id = CurrentUserId });
         }
 
